@@ -8,6 +8,11 @@
     author = { name = "code-nuage" }
 ]]
 
+--+                  +--
+--  direct-verbosity  --
+--  @code-nuage       --
+--+                  +--
+
 local M = {}
 
 local colors = {
