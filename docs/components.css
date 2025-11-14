@@ -1,0 +1,29 @@
+.card {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #f7f7f7;
+    border: 1px solid #c2c2c2;
+    transition: .1s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.link {
+    display: flex;
+    align-items: center;
+}
+
+.link::after {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-image: url("Assets/link.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: hsla(0, 0%, 0%, 0);
+    background-size: contain;
+    margin: 4px;
+}

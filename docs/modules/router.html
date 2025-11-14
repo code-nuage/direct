@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>direct documentation | router</title>
+    <link rel="stylesheet" href="../simpliestui.css">
+    <link rel="stylesheet" href="../components.css">
+    <link rel="stylesheet" href="../doc.css">
+    <link rel="stylesheet" href="../Styles/navbar.css">
+</head>
+<body>
+    <header class="navbar">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="doc container">
+        <h1 class="text-size-32 text-weight-700">direct-router</h1>
+        <h2 class="text-size-24 text-weight-500">Installation</h2>
+        <pre><code>lit install code-nuage/direct-router</code></pre>
+        <pre><code>local router = require("direct-router")</code></pre>
+
+        <h2 class="text-size-24 text-weight-500">Usage</h2>
+        <!-- APP -->
+        <h3 class="text-size-20"><code>app</code> object</h3>
+        <p>Return [table(app)]</p>
+        <pre><code>local app = router.new()</code></pre>
+        <h4 class="text-weight-500">get_host</h4>
+        <p>Return [string]</p>
+        <pre><code>app:get_host()</code></pre>
+        <h4 class="text-weight-500">get_port</h4>
+        <p>Return [number]</p>
+        <pre><code>app:get_port()</code></pre>
+        <h4 class="text-weight-500">get_route</h4>
+        <p>Return [table(route)]</p>
+        <pre><code>app:get_route()</code></pre>
+        <h4 class="text-weight-500">get_route_not_found</h4>
+        <p>Return [table(route)]</p>
+        <pre><code>app:get_route_not_found()</code></pre>
+        <h4 class="text-weight-500">get_plugins</h4>
+        <p>Return [table(plugins)]</p>
+        <pre><code>app:get_plugins()</code></pre>
+        <h4 class="text-weight-500">set_host</h4>
+        <p>Argument [string(host)]</p>
+        <p>Return [table(app)]</p>
+        <pre><code>app:set_host("127.0.0.1")</code></pre>
+        <h4 class="text-weight-500">set_port</h4>
+        <p>Argument [number(port)]</p>
+        <p>Return [table(app)]</p>
+        <pre><code>app:set_port(8080)</code></pre>
+        <h4 class="text-weight-500">add_route</h4>
+        <p>Argument [string(path), string(method), function(callback)]</p>
+        <p>Return [table(app)]</p>
+        <pre><code>app:add_route("/", "GET", function(req, res)
+    res
+    :set_code(200)
+    :set_header("Content-Type", "plain/text")
+    :set_body("Hello World!")
+end)</code></pre>
+        <h4 class="text-weight-500">set_route_not_found</h4>
+        <p>Argument [function(callback)]</p>
+        <p>Return [table(app)]</p>
+        <pre><code>app:set_route_not_found(function(req, res)
+    res
+    :set_code(404)
+    :set_header("Content-Type", "plain/text")
+    :set_body("Route not found...")         
+end)</code></pre>
+        <h4 class="text-weight-500">add_plugin</h4>
+        <p>Argument [table(plugin)]</p>
+        <p>Return [table(app)]</p>
+        <pre><code>app:add_plugin(require("direct-verbosity"))</code></pre>
+        <!-- REQUEST -->
+        <h3 class="text-size-20"><code>request</code> object</h3>
+        <p><code>request</code> object is created automatically when receiving a request and passed to the route callback. You don't have to create it yourself.</p>
+        <p>Return [table(req)]</p>
+        <pre><code>local req = router.request.new()</code></pre>
+        <h4 class="text-weight-500">get_method</h4>
+        <p>Return [string(method)]</p>
+        <pre><code>req:get_method()</code></pre>
+        <h4 class="text-weight-500">get_path</h4>
+        <p>Return [string(path)]</p>
+        <pre><code>req:get_path()</code></pre>
+        <h4 class="text-weight-500">get_body</h4>
+        <p>Return [string(body)]</p>
+        <pre><code>req:get_body()</code></pre>
+        <h4 class="text-weight-500">get_headers</h4>
+        <p>Return [table(headers)]</p>
+        <pre><code>req:get_headers()</code></pre>
+        <h4 class="text-weight-500">set_method</h4>
+        <p>Argument [string(method)]</p>
+        <p>Return [table(req)]</p>
+        <pre><code>req:set_method("GET")</code></pre>
+        <h4 class="text-weight-500">set_path</h4>
+        <p>Argument [string(path)]</p>
+        <p>Return [table(req)]</p>
+        <pre><code>req:set_path("/")</code></pre>
+        <h4 class="text-weight-500">set_body</h4>
+        <p>Argument [string(body)]</p>
+        <p>Return [table(req)]</p>
+        <pre><code>req:set_body("Body of the request.")</code></pre>
+        <h4 class="text-weight-500">set_headers</h4>
+        <p>Argument [string(type), string(value)]</p>
+        <p>Return [table(req)]</p>
+        <pre><code>req:set_header("Content-Type", "application/json")</code></pre>
+        <h4 class="text-weight-500">build</h4>
+        <p>This method extracts a payload from <code>direct-server</code> to get it working with the router API.</p>
+        <p>Argument [table(payload)]</p>
+        <pre><code>req:build({{server payload}})</code></pre>
+        <!-- REQUEST -->
+        <h3 class="text-size-20"><code>response</code> object</h3>
+        <p><code>response</code> object is created automatically when receiving a request and passed to the route callback. You don't have to create it yourself.</p>
+        <p>Return [table(res)]</p>
+        <pre><code>local res = router.response.new()</code></pre>
+        <h4 class="text-weight-500">get_code</h4>
+        <p>Return [number(code)]</p>
+        <pre><code>res:get_code()</code></pre>
+        <h4 class="text-weight-500">get_headers</h4>
+        <p>Return [table(headers)]</p>
+        <pre><code>res:get_headers()</code></pre>
+        <h4 class="text-weight-500">get_body</h4>
+        <p>Return [number(body)]</p>
+        <pre><code>res:get_body()</code></pre>
+        <h4 class="text-weight-500">set_code</h4>
+        <p>Argument [number(code)]</p>
+        <p>Return [table(res)]</p>
+        <pre><code>res:set_code(200)</code></pre>
+        <h4 class="text-weight-500">set_header</h4>
+        <p>Argument [string(type),string(value)]</p>
+        <p>Return [table(res)]</p>
+        <pre><code>res:set_header("Content-Type", "plain/text")</code></pre>
+        <h4 class="text-weight-500">set_body</h4>
+        <p>Argument [string(body)]</p>
+        <p>Return [table(res)]</p>
+        <pre><code>res:set_body("Body of the request")</code></pre>
+        <h4 class="text-weight-500">build</h4>
+        <p>This method injects a payload to <code>direct-server</code> to get it working with the router API.</p>
+        <p>Return [table(payload)]</p>
+        <pre><code>res:build()</code></pre>
+    </main>
+</body>
+</html>

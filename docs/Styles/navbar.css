@@ -1,0 +1,21 @@
+.navbar {
+    position: fixed;
+    width: 100%;
+    background-color: hsl(0, 0%, 100%);
+}
+
+.navbar nav {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar nav ul {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar nav ul li {
+    list-style: none;
+}
