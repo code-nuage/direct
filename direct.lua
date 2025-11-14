@@ -1,6 +1,6 @@
 --[[lit-meta
     name = "code-nuage/direct"
-    version = "0.0.1"
+    version = "0.0.5"
     homepage = "https://github.com/code-nuage/direct/blob/main/direct.lua"
     description = "direct web microframework."
     tags = { "direct" }
