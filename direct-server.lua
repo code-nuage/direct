@@ -1,6 +1,6 @@
 --[[lit-meta
     name = "code-nuage/direct-server"
-    version = "0.0.2"
+    version = "0.1.0"
     homepage = "https://github.com/code-nuage/direct/blob/main/direct-server.lua"
     dependencies = {
         "luvit/coro-http",

@@ -1,6 +1,6 @@
 --[[lit-meta
     name = "code-nuage/direct-router"
-    version = "0.1.1"
+    version = "0.1.2"
     homepage = "https://github.com/code-nuage/direct/blob/main/direct-router.lua"
     dependencies = {
         "code-nuage/direct-server"
