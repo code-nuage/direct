@@ -1,6 +1,6 @@
 --[[lit-meta
     name = "code-nuage/direct-colors"
-    version = "0.1.0"
+    version = "0.1.1"
     homepage = "https://github.com/code-nuage/direct/blob/main/direct-colors.lua"
     description = "CLI colors for the direct web microframework."
     tags = { "direct" }
@@ -16,57 +16,71 @@
 local M = {}
 
 M.colors = {
-    -- Color mode
-    ["NORMAL"] =                    3,
-    ["BACKGROUND"] =                4,
-    ["HIGH_INTENSITY"] =            9,
-    ["BACKGROUND_HIGH_INTENSITY"] = 10,
-
-    -- Color variant
-    ["BLACK"] =  0,
-    ["RED"] =    1,
-    ["GREEN"] =  2,
-    ["YELLOW"] = 3,
-    ["BLUE"] =   4,
-    ["PURPLE"] = 5,
-    ["CYAN"] =   6,
-    ["WHITE"] =  7,
+    modes = {
+        ["NORMAL"] =                    3,
+        ["BACKGROUND"] =                4,
+        ["HIGH_INTENSITY"] =            9,
+        ["BACKGROUND_HIGH_INTENSITY"] = 10,
+    },
 
     -- Text mode
-    ["REGULAR"] =   0,
-    ["BOLD"] =      1,
-    ["UNDERLINE"] = 4,
+    variants = {
+        ["REGULAR"] =   0,
+        ["BOLD"] =      1,
+        ["UNDERLINE"] = 4,
+    },
+
+    -- Color variant
+    colors = {
+        ["BLACK"] =  0,
+        ["RED"] =    1,
+        ["GREEN"] =  2,
+        ["YELLOW"] = 3,
+        ["BLUE"] =   4,
+        ["PURPLE"] = 5,
+        ["CYAN"] =   6,
+        ["WHITE"] =  7,
+    },
 
     -- Utils
     ["RESET"] = "\27[0m"
 }
 
-local function resolve_color(color, default)
-    return (color and M.colors[color]) and M.colors[color] or M.colors[default]
+local function resolve_color(mode, submode, default)
+    return submode and M.colors[mode][submode] or M.colors[mode][default]
 end
 
-local function M.resolve_args(color_mode, color_variant, text_mode)
-    local new_color_mode, new_color_variant, new_text_mode =
-    resolve_color(color_mode, "NORMAL"),
-    resolve_color(color_variant, "BLACK"),
-    resolve_color(color_variant, "REGULAR")    
+local function resolve_args(mode, color, variant)
+    local new_mode, new_color, new_variant =
+    resolve_color("modes", mode, "NORMAL"),
+    resolve_color("colors", color, "BLACK"),
+    resolve_color("variants", variant, "REGULAR")
 
-    return new_color_mode, new_color_variant, new_text_mode
+    return new_mode, new_color, new_variant
 end
 
-local function build_color(color_mode, color_variant, text_mode)
-    color_mode, color_variant, text_mode =
-    resolve_args(color_mode, color_variant, text_mode)
+local function build_color(mode, color, variant)
+    mode, color, variant =
+    resolve_args(mode, color, variant)
 
-    return string.format("\27[%d;%d%dm", color_mode, text_mode, color_variant)
+    return string.format("\27[%d;%d%dm", variant, mode, color)
 end
 
-function M.colorize(text, color_mode, color_variant, text_mode)
+function M.colorize(text, options)
+    assert(type(text) == "string",
+        "Argument <string>: Must be a string.")
+    assert(type(options) == "table",
+        "Argument <options>: Must be a table with optionals {mode, color, variant} as keys.")
     local new_text
 
+    local mode, color, variant =
+    options.mode or nil,
+    options.color or nil,
+    options.variant or nil
+
     new_text = string.format("%s%s%s",
-    build_color(color_mode, color_variant, text_mode),
-    text, M.colors["RESET"])
+        build_color(mode, color, variant),
+        text, M.colors["RESET"])
 
     return new_text
 end
