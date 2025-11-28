@@ -1,6 +1,6 @@
 --[[lit-meta
     name = "code-nuage/direct-verbosity"
-    version = "0.0.4"
+    version = "0.0.5"
     homepage = "https://github.com/code-nuage/direct/blob/main/direct-verbosity.lua"
     dependencies = {
         "code-nuage/direct-colors"
