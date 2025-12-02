@@ -1,6 +1,6 @@
 --[[lit-meta
     name = "code-nuage/direct-logs"
-    version = "0.1.0"
+    version = "0.1.1"
     homepage = "https://github.com/code-nuage/direct/blob/main/direct-logs.lua"
     dependencies = {
         "luvit/coro-fs"
