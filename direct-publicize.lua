@@ -55,7 +55,7 @@ function M.on_load(app, directory, path_prefix)
                     res:set_code(200)
                     res:set_header("Content-Type", mime.guess(entry.name))
                     res:set_body(data or "")
-                end)
+                end, 2)
             elseif entry.type == "directory" then
                 M.on_load(app, full_path, path_prefix .. "/" .. entry.name)
             end
